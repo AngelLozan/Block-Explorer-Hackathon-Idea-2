@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# Support Explorer Hackathon Iteration 2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A project meant to demo for an internal tool hackathon a block explorer extension designed to fit the needs of a 100+ person team.  
+
+![Support Explorer Icon](https://github.com/AngelLozan/Block-Explorer-Hackathon-Idea-2/blob/main/public/SearchExo.png?raw=true)
+
+![Movie Demo of app](https://github.com/AngelLozan/Block-Explorer-Hackathon-Idea-2/blob/main/public/SupportExplorer.mov?raw=true)
 
 ## Available Scripts
 
