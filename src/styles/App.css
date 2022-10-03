@@ -3,11 +3,285 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width:250px;
-  height:100px;
+  min-width: 500px;
+  height:auto;
+  top: 50%;
+  margin: auto;
+  margin-top: 10px;
+  left: 20px;
+  right: 20px;
 }
 
 .sourceInput {
+  display: block;
   margin:10px;
   padding:5px 10px;
+  width: 90%;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.3s;
+  background-color: #f0f0f5;
+  border: 1px solid #1a1d40;
+  border-right: 16px;
+  border-radius: 100px 100px;
+  padding-right: 16px;
+  padding-left: 16px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.sourceInput:focus{
+  outline: none;
+  box-shadow: 0 0 8px #720dff;
+  transition: 1s;
+}
+
+#showFrame{
+    -webkit-transform: scale(1);
+}
+
+#results{
+    -webkit-transform: scale(1);
+}
+
+#loadingBars{
+    display: none;
+}
+
+
+.searchBtn {
+  margin: 8px;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 25px;
+  transition-duration: 0.4s;
+  background-image: linear-gradient(to right, #00bfff, #531aff, #720dff);
+  opacity: 0.6;
+  transition:  0.3s;
+  color: white;
+  font-family: $Roboto;
+}
+
+.searchBtn:hover {
+  color: white;
+  opacity: 1;
+}
+
+.searchBtn:focus {
+   box-shadow: 0 0 8px #720dff;
+}
+
+@font-face {
+
+    font-family: ‘Roboto’;
+    font-style: normal;
+    font-weight: 700;
+    src: Roboto-Regular.ttf;
+}
+
+body {
+font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  height: auto;
+  background-color: #dcdde3;
+  padding:  5px;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        -webkit-transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateY(-30px);
+    }
+
+    60% {
+        -webkit-transform: translateY(-15px);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.bounce {
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+}
+
+
+.extension__input {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.3s;
+  background-color: #f0f0f5;
+  border: 1px solid #1a1d40;
+  border-right: none;
+  border-radius: 100px 0 0 100px;
+  padding-right: 16px;
+  padding-left: 16px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.extension__form:focus-within .extension__input {
+  box-shadow: -0.2rem 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.extension__form:focus-within .extension__search-btn {
+  box-shadow: 0.2rem 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.extension__input:focus, .extension__search-btn:focus {
+  outline: none;
+  box-shadow: 0 0 8px #720dff;
+  transition: 1s;
+}
+
+.extension__search-btn {
+  flex: 1 0 auto;
+  height: 38px;
+  width: 46px;
+  background-color: #f0f0f5;
+  border-radius: 0 100px 100px 0;
+  border: 1px solid #1a1d40;
+  border-left: none;
+  transition: 0.3s;
+  transition-duration: 0.4s;
+}
+
+#snackbar {
+    visibility: hidden;
+    /* Hidden by default. Visible on click */
+    margin: auto;
+    background-color: #1a1d40;
+    /* Paua background color */
+    color: #fff;
+    /* White text color */
+    text-align: center;
+    /* Centered text */
+    border-radius: 15px;
+    /* Rounded borders */
+    padding: 5px 10px;
+    position: fixed;
+    /* Sit on top of the screen */
+    z-index: 1;
+    /* Add a z-index if needed */
+    left: 30%;
+    /* Bring the snackbar closer to exodude*/
+    right: 30%;
+
+    top: 80px;
+    /* 75px from the top */
+    font-family: $Roboto;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible;
+    /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#snackbar:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 60%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #1a1d40;
+    border-top: 0;
+    border-left: 0;
+    border-top-left-radius: 20px 25px;
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: 80px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        top: 0;
+        opacity: 0;
+    }
+
+    to {
+        top: 80px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        top: 80px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        top: 80px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0;
+        opacity: 0;
+    }
+}
+
+
