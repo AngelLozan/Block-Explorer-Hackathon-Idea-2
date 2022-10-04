@@ -7,24 +7,26 @@ import logo from './fella.png';
 
 
 function SourceInput() {
-    const ref = useRef(null);
-    //const [loading, setLoading] = useState(false);
-    const [showResults, setShowResults] = useState();
-    const [frameSource, setFrameSource] = useState();
+    const ref = useRef(null); //@dev Used in use effect to designate the iframe as the ref so no new tab/window opens on link click in iframe.  
+    const [showResults, setShowResults] = useState(); //@dev Used to hide or show results in popup. Inactive until search activated. 
+    const [frameSource, setFrameSource] = useState(); //@dev Used to set the URL for the iframe depending on regex match. Where to search the transaction hash. 
 
+//@dev Encapsulates the iframe to be shown or not depending on the above state. 
     const Results = () => (
         <div id="results" className="search-results">
       <iframe id="showFrame" ref={ref} src={frameSource} height="300" width="500" title="blockscan" target="_parent" onLoad={hideLoader} allowfullscreen></iframe>
     </div>
     )
 
-    //To Do: Check both address and tx hash for dups like btc and ada and other btc-like assets. lsajflsdj.test || lsjflsd.test = btc
+//To Do: Check both address and tx hash for dups like btc and ada and other btc-like assets. lsajflsdj.test || lsjflsd.test = btc
 
+//@dev Used for populating UI response from Exodude image on popup when empty string is searched. 
     const emojis = ['✌️ Enter query', '🤔 I\'m listening', '🦾 I find things', '🚀 To the moon\!', '🤙 Query vibez', '🖖 Search ser', '👋 Hi there', '👾 Can I help?', '🧠 Query me', '🌈 Enter search', '✨ Shiny searches', '💫 Find a tx here'];
     const getRandomEmoji = () => {
         return emojis[~~(Math.random() * emojis.length)]
     };
 
+//@dev streamlines this repeated UI feedback for users. 
     const lookUpText = async () => {
         var x = await document.getElementById("snackbar");
         x.innerText = "🔍 One moment, let me look that up...";
@@ -32,16 +34,18 @@ function SourceInput() {
         setTimeout(function() { x.className = x.className.replace("show", ""); }, 1800);
     }
 
+//@dev Hides the loader when the page is loaded. 
     const hideLoader = () => {
         let loading = document.getElementById("loadingBars");
         loading.style.display = "none";
         console.log("Loader Hidden.")
     }
 
+//@dev The Search function called on click in the return statement. Regex matching and some UI feedback for users. Also the loading plugin package is shown/hidden here.
     const search = async () => {
         let source = await document.getElementById('sourceInput').value
         let loading = document.getElementById("loadingBars");
-        //setLoading(true);
+    
         loading.style.display = "block";
 
         if (source === null || source === undefined || !source) {
@@ -97,10 +101,8 @@ function SourceInput() {
         }
     }
 
+//@dev This use effect prevents links clicked in iframe from navigating away from the current popup so you can navigate around within the iframe.
     useEffect(() => {
-
-
-
         const handleClick = event => {
             const a = event.target.closest('a[href]');
             if (a) {
@@ -108,15 +110,12 @@ function SourceInput() {
                 chrome.tabs.create({ url: a.href, active: false });
             }
         }
-
         const element = ref.current;
-
         if (element) {
             element.addEventListener('click', handleClick);
         } else {
             console.log("No element");
         }
-
         return () => {
             element.removeEventListener('click', handleClick);
         };
